@@ -1,2 +1,2 @@
-# udu
-Updogliu's utilities
+# ugo
+Updogliu's golang utilities
