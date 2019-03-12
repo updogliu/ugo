@@ -20,11 +20,11 @@ func (t *UtimeTestSuite) TestAssertRealTime() {
 	goodTimes := []time.Time{
 		time.Now(),
 		time.Date(2017, time.December, 01, 0, 0, 0, 0, time.UTC),
-		time.Date(2027, time.December, 01, 23, 59, 59, 999999999, time.UTC),
+		time.Date(2099, time.December, 01, 23, 59, 59, 999999999, time.UTC),
 	}
 	badTimes := []time.Time{
 		time.Date(2017, time.November, 30, 23, 59, 59, 999999999, time.UTC),
-		time.Date(2027, time.December, 02, 0, 0, 0, 0, time.UTC),
+		time.Date(2099, time.December, 02, 0, 0, 0, 0, time.UTC),
 	}
 
 	for _, time := range goodTimes {

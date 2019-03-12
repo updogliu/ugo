@@ -54,38 +54,32 @@ func GapMs(t1, t2 time.Time) int64 {
 	return DurToMs(Gap(t1, t2))
 }
 
-// Returns whether a timestamp (in second) is in 2017/12/01 ~ 2027/12/01
+// Returns whether a timestamp (in second) is in 2017/12/01 ~ 2099/12/01
 func IsRealTimeSec(timeSec int64) bool {
-	return IsRealTimeMs(timeSec * 1000)
+	return 1512086400 <= timeSec && timeSec <= 4099852799
 }
 
-// Returns whether a timestamp (in millisecond) is in 2017/12/01 ~ 2027/12/01
+// Returns whether a timestamp (in millisecond) is in 2017/12/01 ~ 2099/12/01
 func IsRealTimeMs(timeMs int64) bool {
-	return 1512086400000 <= timeMs && timeMs <= 1827705599999
+	return 1512086400000 <= timeMs && timeMs <= 4099852799999
 }
 
-// Assert a timestamp (in second) is in 2017/12/01 ~ 2027/12/01
+// Assert a timestamp (in second) is in 2017/12/01 ~ 2099/12/01
 func AssertRealTimeSec(timeSec int64) {
 	if !IsRealTimeSec(timeSec) {
-		panic(fmt.Sprintf("timeSec %v is not in 2017/12/01 ~ 2027/12/01 UTC", timeSec))
+		panic(fmt.Sprintf("timeSec %v is not in 2017/12/01 ~ 2099/12/01 UTC", timeSec))
 	}
 }
 
-// Assert a timestamp (in millisecond) is in 2017/12/01 ~ 2027/12/01 UTC.
+// Assert a timestamp (in millisecond) is in 2017/12/01 ~ 2099/12/01 UTC.
 func AssertRealTimeMs(timeMs int64) {
 	if !IsRealTimeMs(timeMs) {
-		panic(fmt.Sprintf("timeMs %v is not in 2017/12/01 ~ 2027/12/01 UTC", timeMs))
+		panic(fmt.Sprintf("timeMs %v is not in 2017/12/01 ~ 2099/12/01 UTC", timeMs))
 	}
 }
 
-func CtxTimeoutMs(timeoutMs int64) context.Context {
-	ctx, _ := context.WithTimeout(context.Background(), time.Duration(timeoutMs)*time.Millisecond)
-	return ctx
-}
-
-// DEPRECATED - use `CtxTimeoutMs`
 // Precondition: `timeoutMs` >= 0
-func CtxWithTimeoutMs(timeoutMs int64) context.Context {
+func CtxTimeoutMs(timeoutMs int64) context.Context {
 	ctx, _ := context.WithTimeout(context.Background(), time.Duration(timeoutMs)*time.Millisecond)
 	return ctx
 }
