@@ -11,6 +11,9 @@ require (
 	github.com/pborman/uuid v1.2.0 // indirect
 	github.com/pkg/errors v0.8.1
 	github.com/rjeczalik/notify v0.9.2 // indirect
+	github.com/rs/cors v1.6.0 // indirect
 	github.com/syndtr/goleveldb v1.0.0 // indirect
+	github.com/updogliu/ugo/ulog v0.0.0-20190312032121-bdb9cc2223f4
+	github.com/updogliu/ugo/utime v0.0.0-20190312032121-bdb9cc2223f4
 	golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2 // indirect
 )
