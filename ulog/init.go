@@ -5,5 +5,7 @@ const defaultLevel = "debug"
 var defaultLogger Logger
 
 func init() {
-	defaultLogger = NewLogger()
+	defaultLogger = &ulogger{
+		log: newProductionLogger(defaultLevel, 2),
+	}
 }

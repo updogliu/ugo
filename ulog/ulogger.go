@@ -9,8 +9,7 @@ import (
 )
 
 type ulogger struct {
-	log   *zap.SugaredLogger
-	level string
+	log *zap.SugaredLogger
 }
 
 func unmarshalLevel(lvl string) zapcore.Level {
@@ -26,7 +25,7 @@ func unmarshalLevel(lvl string) zapcore.Level {
 	return level
 }
 
-func newProductionLogger(level string) *zap.SugaredLogger {
+func newProductionLogger(level string, callerSkipLevel int) *zap.SugaredLogger {
 	config := zap.NewProductionEncoderConfig()
 	config.EncodeLevel = EncodeLevel
 	config.EncodeTime = EncodeTime
@@ -41,7 +40,7 @@ func newProductionLogger(level string) *zap.SugaredLogger {
 	consoleEncoder := zapcore.NewConsoleEncoder(config)
 
 	core := zapcore.NewCore(consoleEncoder, consoleOut, normalEnabler)
-	logger := zap.New(core, zap.AddCaller(), zap.AddCallerSkip(1))
+	logger := zap.New(core, zap.AddCaller(), zap.AddCallerSkip(callerSkipLevel))
 	return logger.Sugar()
 }
 
@@ -155,7 +154,9 @@ func (l *ulogger) Panicw(msg string, args ...interface{}) {
 }
 
 func (l *ulogger) With(key string, value interface{}) Logger {
-	return &ulogger{l.log.With(zap.Any(key, value)), l.level}
+	return &ulogger{
+		log: l.log.With(zap.Any(key, value)),
+	}
 }
 
 func (l *ulogger) WithFields(fields map[string]interface{}) Logger {

@@ -50,8 +50,7 @@ func NewLogger() Logger {
 // Log levels available: "debug", "info", "warn", "error", "panic", "fatal".
 func NewLoggerWithLevel(level string) Logger {
 	return &ulogger{
-		log:   newProductionLogger(level),
-		level: level,
+		log: newProductionLogger(level, 1),
 	}
 }
 
