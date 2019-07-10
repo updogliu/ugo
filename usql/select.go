@@ -93,6 +93,20 @@ func SelectItems(stub Querier, item DBItem, table string, condition string, args
 	return items, nil
 }
 
+func SelectCount(stub Querier, table string, condition string, args ...interface{}) (int64, error) {
+	sql := "SELECT COUNT(*) FROM " + table
+	if condition != "" {
+		sql += fmt.Sprintf(" WHERE %s", condition)
+	}
+	row := stub.QueryRowContext(newQueryCtx(), sql, args...)
+
+	var count int64
+	if err := row.Scan(&count); err != nil {
+		return 0, err
+	}
+	return count, nil
+}
+
 // Extract column names from struct tag `sqlcol`
 // `item` is a pointer to the item. Only the type is significant. Any non-nil value will work.
 func colStr(item DBItem) string {
