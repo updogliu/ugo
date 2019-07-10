@@ -112,7 +112,11 @@ func colStr(item DBItem) string {
 }
 
 func selectSql(item DBItem, table string, condition string) string {
-	return fmt.Sprintf("SELECT %s FROM %s WHERE %s", colStr(item), table, condition)
+	sql := fmt.Sprintf("SELECT %s FROM %s", colStr(item), table)
+	if condition != "" {
+		sql += fmt.Sprintf(" WHERE %s", condition)
+	}
+	return sql
 }
 
 // Creates a new item instance.
