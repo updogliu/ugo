@@ -46,7 +46,8 @@ type DBItem interface {
 //   err := SelectItem(db, &s, "student_table", "score >= ?", 60)
 // ```
 func SelectItem(stub Querier, item DBItem, table string, condition string, args ...interface{}) error {
-	row := stub.QueryRowContext(newQueryCtx(), selectSql(item, table, condition), args...)
+	sqlStr := selectSql(item, table, condition, "")
+	row := stub.QueryRowContext(newQueryCtx(), sqlStr, args...)
 	err := item.ScanRow(row)
 	if err == sql.ErrNoRows {
 		return NotFound
@@ -56,13 +57,14 @@ func SelectItem(stub Querier, item DBItem, table string, condition string, args 
 
 // Query items.
 //
-// `item` serves as a "type parameter". Use any non-nil pointer of item. Its value is unchanged.
-// `condition` goes to the WHERE clause.
+// - `item` serves as a "type parameter". Use any non-nil pointer of item. Its value is unchanged.
+// - `orderBy` goes to the ORDER BY clause. Empty string means not ordered.
+// - `condition` goes to the WHERE clause. Empty string means no condition.
 // Returns `NotFound` if no such an record in DB.
 //
 // Example:
 // ```
-//   items, err := SelectItems(db, &Student{}, "student_table", "score >= ?", 60)
+//   items, err := SelectItems(db, &Student{}, "student_table", "id DESC", "score >= ?", 60)
 //   if err != nil {
 //     ...handles err
 //   }
@@ -71,9 +73,11 @@ func SelectItem(stub Querier, item DBItem, table string, condition string, args 
 //     s = append(s, item.(*Student))
 //   }
 // ```
-func SelectItems(stub Querier, item DBItem, table string, condition string, args ...interface{}) (
-	[]DBItem, error) {
-	rows, err := stub.QueryContext(newQueryCtx(), selectSql(item, table, condition), args...)
+func SelectItems(stub Querier, item DBItem, table string, orderBy string,
+	condition string, args ...interface{}) ([]DBItem, error) {
+
+	sqlStr := selectSql(item, table, condition, orderBy)
+	rows, err := stub.QueryContext(newQueryCtx(), sqlStr, args...)
 	if err != nil {
 		return nil, err
 	}
@@ -125,10 +129,13 @@ func colStr(item DBItem) string {
 	return ""
 }
 
-func selectSql(item DBItem, table string, condition string) string {
+func selectSql(item DBItem, table string, condition string, orderBy string) string {
 	sql := fmt.Sprintf("SELECT %s FROM %s", colStr(item), table)
 	if condition != "" {
 		sql += fmt.Sprintf(" WHERE %s", condition)
+	}
+	if orderBy != "" {
+		sql += " ORDER BY " + orderBy
 	}
 	return sql
 }

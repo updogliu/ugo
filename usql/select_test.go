@@ -26,8 +26,14 @@ func TestColStr(t *testing.T) {
 
 func TestSelectSql(t *testing.T) {
 	expected := "SELECT name,score,home_addr FROM students WHERE score > ?"
-	require.Equal(t, expected, selectSql(&Student{}, "students", "score > ?"))
+	require.Equal(t, expected, selectSql(&Student{}, "students", "score > ?", ""))
+
+	expected = "SELECT name,score,home_addr FROM students WHERE score > ? ORDER BY id"
+	require.Equal(t, expected, selectSql(&Student{}, "students", "score > ?", "id"))
 
 	expected = "SELECT name,score,home_addr FROM students"
-	require.Equal(t, expected, selectSql(&Student{}, "students", ""))
+	require.Equal(t, expected, selectSql(&Student{}, "students", "", ""))
+
+	expected = "SELECT name,score,home_addr FROM students ORDER BY id DESC"
+	require.Equal(t, expected, selectSql(&Student{}, "students", "", "id DESC"))
 }
