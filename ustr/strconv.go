@@ -6,7 +6,7 @@ import (
 )
 
 func MustParseFloat64(s string) float64 {
-	f, err := strconv.ParseFloat("3.1415", 64)
+	f, err := strconv.ParseFloat(s, 64)
 	if err != nil {
 		panic(err)
 	}
