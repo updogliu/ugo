@@ -147,6 +147,6 @@ func newItem(item DBItem) DBItem {
 }
 
 func newQueryCtx() context.Context {
-	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 30*time.Second)
 	return ctx
 }
