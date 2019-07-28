@@ -4,7 +4,7 @@ import (
 	"math"
 	"sort"
 
-	gonum "gonum.org/v1/gonum/stat"
+	"gonum.org/v1/gonum/stat"
 )
 
 // For a series of `n` values, the max and the min `n * outlierFilterRate` values are filtered
@@ -26,5 +26,5 @@ func MeanStdDev(original []float64, outlierFilterRate float64) (mean, std float6
 	}
 
 	x = x[filterNum : len(x)-filterNum]
-	return gonum.MeanStdDev(x, nil)
+	return stat.MeanStdDev(x, nil)
 }
