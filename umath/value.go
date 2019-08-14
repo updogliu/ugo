@@ -16,3 +16,27 @@ func I64Abs(x int64) int64 {
 	}
 	return -x
 }
+
+// Returns the first value `v` that `v >= x` and `v` is a multiple of `unit`.
+func I64RoundUp(x int64, unit int64) int64 {
+	if unit <= 0 {
+		panic("non-positive unit")
+	}
+	v := x - x%unit
+	if v < unit {
+		v += unit
+	}
+	return v
+}
+
+// Returns the last value `v` that `v <= x` and `v` is a multiple of `unit`.
+func I64RoundDown(x int64, unit int64) int64 {
+	if unit <= 0 {
+		panic("non-positive unit")
+	}
+	v := x - x%unit
+	if v > unit {
+		v -= unit
+	}
+	return v
+}
