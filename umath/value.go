@@ -40,3 +40,15 @@ func I64RoundDown(x int64, unit int64) int64 {
 	}
 	return v
 }
+
+func I64CheckMin(currentMin *int64, candidate int64) {
+	if candidate < *currentMin {
+		*currentMin = candidate
+	}
+}
+
+func I64CheckMax(currentMax *int64, candidate int64) {
+	if candidate > *currentMax {
+		*currentMax = candidate
+	}
+}
