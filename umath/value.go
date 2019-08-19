@@ -23,7 +23,7 @@ func I64RoundUp(x int64, unit int64) int64 {
 		panic("non-positive unit")
 	}
 	v := x - x%unit
-	if v < unit {
+	if v < x {
 		v += unit
 	}
 	return v
@@ -35,7 +35,7 @@ func I64RoundDown(x int64, unit int64) int64 {
 		panic("non-positive unit")
 	}
 	v := x - x%unit
-	if v > unit {
+	if v > x {
 		v -= unit
 	}
 	return v
