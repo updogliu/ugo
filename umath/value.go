@@ -17,6 +17,13 @@ func I64Abs(x int64) int64 {
 	return -x
 }
 
+func IAbs(x int) int {
+	if x >= 0 {
+		return x
+	}
+	return -x
+}
+
 // Returns the first value `v` that `v >= x` and `v` is a multiple of `unit`.
 func I64RoundUp(x int64, unit int64) int64 {
 	if unit <= 0 {
@@ -48,6 +55,18 @@ func I64MakeMin(currentMin *int64, candidate int64) {
 }
 
 func I64MakeMax(currentMax *int64, candidate int64) {
+	if candidate > *currentMax {
+		*currentMax = candidate
+	}
+}
+
+func IMakeMin(currentMin *int, candidate int) {
+	if candidate < *currentMin {
+		*currentMin = candidate
+	}
+}
+
+func IMakeMax(currentMax *int, candidate int) {
 	if candidate > *currentMax {
 		*currentMax = candidate
 	}
