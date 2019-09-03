@@ -28,3 +28,7 @@ func MeanStdDev(original []float64, outlierFilterRate float64) (mean, stddev flo
 	x = x[filterNum : len(x)-filterNum]
 	return stat.MeanStdDev(x, nil)
 }
+
+func StdScore(x, mean, stddev float64) float64 {
+	return (x - mean) / stddev
+}
