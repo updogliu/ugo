@@ -77,11 +77,11 @@ func I64RoundDown(x, unit int64) int64 {
 }
 
 func IRoundUp(x, unit int) int {
-	return int(I64RoundUp(x, unit))
+	return int(I64RoundUp(int64(x), int64(unit)))
 }
 
 func IRoundDown(x, unit int) int {
-	return int(I64RoundDown(x, unit))
+	return int(I64RoundDown(int64(x), int64(unit)))
 }
 
 func I64MakeMin(currentMin *int64, candidate int64) {

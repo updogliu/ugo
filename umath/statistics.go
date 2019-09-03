@@ -11,7 +11,7 @@ import (
 // out from the mean and std-dev calculation. Returns (NaN, NaN) if all numbers are filtered out.
 //
 // Precondition: `outlierFilterRate` is in [0, 1.0].
-func MeanStdDev(original []float64, outlierFilterRate float64) (mean, std float64) {
+func MeanStdDev(original []float64, outlierFilterRate float64) (mean, stddev float64) {
 	if outlierFilterRate < 0 || outlierFilterRate > 1.0 {
 		panic("Invalid outlierFilterRate")
 	}
