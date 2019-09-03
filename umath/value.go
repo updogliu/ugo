@@ -24,8 +24,36 @@ func IAbs(x int) int {
 	return -x
 }
 
+func I64Max(a, b int64) int64 {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func I64Min(a, b int64) int64 {
+	if a < b {
+		return a
+	}
+	return b
+}
+
+func IMax(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
+}
+
+func IMin(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
 // Returns the first value `v` that `v >= x` and `v` is a multiple of `unit`.
-func I64RoundUp(x int64, unit int64) int64 {
+func I64RoundUp(x, unit int64) int64 {
 	if unit <= 0 {
 		panic("non-positive unit")
 	}
@@ -37,7 +65,7 @@ func I64RoundUp(x int64, unit int64) int64 {
 }
 
 // Returns the last value `v` that `v <= x` and `v` is a multiple of `unit`.
-func I64RoundDown(x int64, unit int64) int64 {
+func I64RoundDown(x, unit int64) int64 {
 	if unit <= 0 {
 		panic("non-positive unit")
 	}
@@ -46,6 +74,14 @@ func I64RoundDown(x int64, unit int64) int64 {
 		v -= unit
 	}
 	return v
+}
+
+func IRoundUp(x, unit int) int {
+	return int(I64RoundUp(x, unit))
+}
+
+func IRoundDown(x, unit int) int {
+	return int(I64RoundDown(x, unit))
 }
 
 func I64MakeMin(currentMin *int64, candidate int64) {
