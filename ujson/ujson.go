@@ -2,6 +2,10 @@ package ujson
 
 import "encoding/json"
 
+func Beautify(v interface{}) string {
+	return GetIndentedJsonStr(v)
+}
+
 func GetIndentedJsonStr(v interface{}) string {
 	marshalled, err := json.MarshalIndent(v, "", "  ")
 	if err != nil {
@@ -9,8 +13,6 @@ func GetIndentedJsonStr(v interface{}) string {
 	}
 	return string(marshalled)
 }
-
-var Beautify = GetIndentedJsonStr
 
 func GetCompactJsonStr(v interface{}) string {
 	marshalled, err := json.Marshal(v)
