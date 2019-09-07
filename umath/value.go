@@ -107,3 +107,15 @@ func IMakeMax(currentMax *int, candidate int) {
 		*currentMax = candidate
 	}
 }
+
+func F64MakeMin(currentMin *float64, candidate float64) {
+	if candidate < *currentMin {
+		*currentMin = candidate
+	}
+}
+
+func F64MakeMax(currentMax *float64, candidate float64) {
+	if candidate > *currentMax {
+		*currentMax = candidate
+	}
+}
