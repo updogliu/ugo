@@ -29,3 +29,17 @@ func GetCompactJsonStr(v interface{}) string {
 func UnmarshalStr(str string, v interface{}) error {
 	return json.Unmarshal([]byte(str), v)
 }
+
+func MustUnmarshal(data []byte, v interface{}) {
+	err := json.Unmarshal(data, v)
+	if err != nil {
+		panic("Failed to unmarshal json: " + err.Error())
+	}
+}
+
+func MustUnmarshalStr(str string, v interface{}) {
+	err := json.Unmarshal([]byte(str), v)
+	if err != nil {
+		panic("Failed to unmarshal json: " + err.Error())
+	}
+}
