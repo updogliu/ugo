@@ -1,13 +1,10 @@
 package uplot
 
 import (
-	"io/ioutil"
-	"os"
-	"os/exec"
+	"bytes"
 
-	ec "github.com/updogliu/go-echarts/charts"
-	"github.com/updogliu/ugo/ulog"
-	"github.com/updogliu/ugo/utime"
+	ec "github.com/go-echarts/go-echarts/charts"
+	"github.com/pkg/browser"
 )
 
 // Precondition `xs` and `ys` have the same length.
@@ -37,18 +34,7 @@ func Scatter(title string, xs, ys []float64) *ec.RectChart {
 
 // `chart` will become unusable after this function.
 func RenderInBrowser_DestroyChart(chart *ec.RectChart) {
-	fout, err := ioutil.TempFile("", "uplot_scatter_*.html")
-	if err != nil {
-		ulog.Panic("Failed to create temp html file: ", err)
-	}
-	defer os.Remove(fout.Name()) // clean up
-
-	chart.Render(fout)
-	if err := exec.Command("google-chrome", fout.Name()).Run(); err != nil {
-		ulog.Panicf("Failed to open %v with google-chrome: ", err)
-	}
-	if err := fout.Close(); err != nil {
-		ulog.Panicf("Failed to close %v: %v", fout.Name(), err)
-	}
-	utime.SleepMs(500) // not to delete the tmp file too quickly
+	buf := new(bytes.Buffer)
+	chart.Render(buf)
+	browser.OpenReader(buf)
 }
