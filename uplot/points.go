@@ -38,7 +38,10 @@ func Line(title string, args ...interface{}) *ec.RectChart {
 
 	chart := ec.NewLine()
 	chart.SetGlobalOptions(
-		ec.TitleOpts{Title: title},
+		ec.TitleOpts{
+			Title: title,
+			TitleStyle: ec.TextStyleOpts{FontSize: 1},
+		},
 		ec.XAxisOpts{Type: "value", Show: true},
 		ec.YAxisOpts{Type: "value", Show: true},
 		ec.DataZoomOpts{Type: "inside", XAxisIndex: []int{0}},
