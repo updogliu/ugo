@@ -13,6 +13,22 @@ func EncodeTime(t time.Time, encoder zc.PrimitiveArrayEncoder) {
 	encoder.AppendString(t.Format("060102-15:04:05.000 MST"))
 }
 
+func DecodeTime(s string) (time.Time, error) {
+	t, err := time.Parse("060102-15:04:05.000 MST", s)
+	if err != nil {
+		return time.Time{}, err
+	}
+	return t, nil
+}
+
+func MustDecodeTime(s string) time.Time {
+	t, err := DecodeTime(s)
+	if err != nil {
+		panic("Failed to decode time: " + err.Error())
+	}
+	return t
+}
+
 func EncodeLevel(l zc.Level, encoder zc.PrimitiveArrayEncoder) {
 	switch l {
 	case zc.DebugLevel:

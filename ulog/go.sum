@@ -1,3 +1,15 @@
+github.com/davecgh/go-spew v1.1.0 h1:ZDRjVQ15GmhC3fiQ8ni8+OwkZQO4DARzQgrnXU1Liz8=
+github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
+github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
+github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
+github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
+github.com/stretchr/testify v1.3.0 h1:TivCn/peBQ7UY8ooIcPgZFpTNSz0Q2U6UrFlUfqbe0Q=
+github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
+github.com/updogliu/ugo v0.0.0-20191016041505-45daff72a053 h1:4xud9OO77DnSaczhioPC/t7Boyb1ptWoNNXDBnZzbz8=
+github.com/updogliu/ugo/utest v0.0.0-20191016041505-45daff72a053 h1:/Nd3z8ppukvqmJse/nitv9QZ4/8BsTzcMDKHantfBcY=
+github.com/updogliu/ugo/utest v0.0.0-20191016041505-45daff72a053/go.mod h1:BipvhGyLNzd0Wt50AxQWBmeWeTIasLZwbN39FAN2+jE=
+github.com/updogliu/ugo/utime v0.0.0-20191016041505-45daff72a053 h1:F+Mlotm4k+5W2SyUWVfXHw+q5VtC7PQl4MEgHH+fzhk=
+github.com/updogliu/ugo/utime v0.0.0-20191016041505-45daff72a053/go.mod h1:ZzTDQNU0w4atJR1q97pjHIvPcnO+5S0LMDGUUk1TLyg=
 go.uber.org/atomic v1.3.2 h1:2Oa65PReHzfn29GpvgsYwloV9AVFHPDk8tYxt2c2tr4=
 go.uber.org/atomic v1.3.2/go.mod h1:gD2HeocX3+yG+ygLZcrzQJaqmWj9AIm7n08wl/qW/PE=
 go.uber.org/multierr v1.1.0 h1:HoEmRHQPVSqub6w2z2d2EOVs2fjyFRGyofhKuyDq0QI=
