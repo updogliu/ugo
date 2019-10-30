@@ -8,53 +8,62 @@ import (
 	"github.com/updogliu/ugo/ulog"
 )
 
-// `args` can have one of the following types
+// `args` has format []{title1, xys1, title2, xys2, ...}.
+// Each `xys` can have one of the following types:
 //   - [][2]float64
 //   - []struct{X, Y float64}
-//   - ([]float64, []float64)
-func Scatter(title string, args ...interface{}) *ec.RectChart {
-	xys := getXYs(args...)
-
+//   - [2][]float64
+func Scatter(args ...interface{}) *ec.RectChart {
 	chart := ec.NewScatter()
 	chart.SetGlobalOptions(
-		ec.TitleOpts{Title: title},
 		ec.XAxisOpts{Type: "value", Show: true},
 		ec.YAxisOpts{Type: "value", Show: true},
 		ec.DataZoomOpts{Type: "inside", XAxisIndex: []int{0}},
 		ec.DataZoomOpts{Type: "slider", XAxisIndex: []int{0}},
 		ec.ToolboxOpts{Show: true},
 	)
-	chart.AddYAxis(title, xys)
+
+	if len(args) % 2 != 0 {
+		ulog.Panic("Invalid len(args): ", len(args))
+	}
+	for i := 0; i < len(args); i += 2 {
+		title := args[i].(string)
+		xys := getXYs(args[i + 1])
+		chart.AddYAxis(title, xys)
+	}
 
 	return &chart.RectChart
 }
 
-// `args` can have one of the following types
+// `args` has format []{title1, xys1, title2, xys2, ...}.
+// Each `xys` can have one of the following types:
 //   - [][2]float64
 //   - []struct{X, Y float64}
-//   - ([]float64, []float64)
-func Line(title string, args ...interface{}) *ec.RectChart {
-	xys := getXYs(args...)
-
+//   - [2][]float64
+func Line(args ...interface{}) *ec.RectChart {
 	chart := ec.NewLine()
 	chart.SetGlobalOptions(
-		ec.TitleOpts{
-			Title: title,
-			TitleStyle: ec.TextStyleOpts{FontSize: 1},
-		},
 		ec.XAxisOpts{Type: "value", Show: true},
 		ec.YAxisOpts{Type: "value", Show: true},
 		ec.DataZoomOpts{Type: "inside", XAxisIndex: []int{0}},
 		ec.DataZoomOpts{Type: "slider", XAxisIndex: []int{0}},
 		ec.ToolboxOpts{Show: true},
 	)
-	chart.AddYAxis(title, xys)
+
+	if len(args) % 2 != 0 {
+		ulog.Panic("Invalid len(args): ", len(args))
+	}
+	for i := 0; i < len(args); i += 2 {
+		title := args[i].(string)
+		xys := getXYs(args[i + 1])
+		chart.AddYAxis(title, xys)
+	}
 
 	return &chart.RectChart
 }
 
-func getXYs(args ...interface{}) (xys [][2]float64) {
-	switch v := args[0].(type) {
+func getXYs(arg interface{}) (xys [][2]float64) {
+	switch v := arg.(type) {
 	case [][2]float64:
 		return v
 
@@ -64,21 +73,17 @@ func getXYs(args ...interface{}) (xys [][2]float64) {
 		}
 		return
 
-	case []float64:
-		if len(args) != 2 {
-			ulog.Panic("Unexpected num of args: ", len(args))
+	case [2][]float64:
+		if len(v[0]) != len(v[1]) {
+			ulog.Panicf("xs and ys have different lengths: %v vs %v", len(v[0]), len(v[1]))
 		}
-		ys := args[1].([]float64)
-		if len(v) != len(ys) {
-			ulog.Panicf("xs and ys have different lengths: %v vs %v", len(v), len(ys))
-		}
-		for i := range v {
-			xys = append(xys, [2]float64{v[i], ys[i]})
+		for i := range v[0] {
+			xys = append(xys, [2]float64{v[0][i], v[1][i]})
 		}
 		return
 
 	default:
-		ulog.Panicf("Unexpected type of the first arg: %T", args[0])
+		ulog.Panicf("Unexpected type of xys arg: %T", arg)
 	}
 	panic("unreachable")
 }
