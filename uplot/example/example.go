@@ -17,6 +17,7 @@ func main() {
 		"Our Dots", [2][]float64{{2, 4, 8, 11, 13}, {3, 5, 2, 15, 12}},
 	)
 	uplot.SetSymbolSize(chart, 5)
+	uplot.SetYAxisLimits(chart, -15, 30)
 
 	uplot.RenderInBrowser_DestroyChart(chart)
 }

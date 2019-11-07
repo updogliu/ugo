@@ -23,12 +23,12 @@ func Scatter(args ...interface{}) *ec.RectChart {
 		ec.ToolboxOpts{Show: true},
 	)
 
-	if len(args) % 2 != 0 {
+	if len(args)%2 != 0 {
 		ulog.Panic("Invalid len(args): ", len(args))
 	}
 	for i := 0; i < len(args); i += 2 {
 		title := args[i].(string)
-		xys := getXYs(args[i + 1])
+		xys := getXYs(args[i+1])
 		chart.AddYAxis(title, xys)
 	}
 	return &chart.RectChart
@@ -49,16 +49,26 @@ func Line(args ...interface{}) *ec.RectChart {
 		ec.ToolboxOpts{Show: true},
 	)
 
-	if len(args) % 2 != 0 {
+	if len(args)%2 != 0 {
 		ulog.Panic("Invalid len(args): ", len(args))
 	}
 	for i := 0; i < len(args); i += 2 {
 		title := args[i].(string)
-		xys := getXYs(args[i + 1])
+		xys := getXYs(args[i+1])
 		chart.AddYAxis(title, xys)
 	}
 
 	return &chart.RectChart
+}
+
+func SetYAxisLimits(chart *ec.RectChart, min, max float64) {
+	var yAxisOpt ec.YAxisOpts
+	if len(chart.YAxisOptsList) > 0 {
+		yAxisOpt = chart.YAxisOptsList[0]
+	}
+	yAxisOpt.Min = min
+	yAxisOpt.Max = max
+	chart.SetGlobalOptions(yAxisOpt)
 }
 
 func SetSymbolSize(chart *ec.RectChart, size float32) {
