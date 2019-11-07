@@ -31,7 +31,6 @@ func Scatter(args ...interface{}) *ec.RectChart {
 		xys := getXYs(args[i + 1])
 		chart.AddYAxis(title, xys)
 	}
-
 	return &chart.RectChart
 }
 
@@ -60,6 +59,12 @@ func Line(args ...interface{}) *ec.RectChart {
 	}
 
 	return &chart.RectChart
+}
+
+func SetSymbolSize(chart *ec.RectChart, size float32) {
+	for i := range chart.Series {
+		chart.Series[i].SymbolSize = size
+	}
 }
 
 func getXYs(arg interface{}) (xys [][2]float64) {
