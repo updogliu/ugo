@@ -119,3 +119,15 @@ func F64MakeMax(currentMax *float64, candidate float64) {
 		*currentMax = candidate
 	}
 }
+
+func IBetween(x, min, max int) bool {
+	return min <= x && x <= max
+}
+
+func I64Between(x, min, max int64) bool {
+	return min <= x && x <= max
+}
+
+func F64Between(x, min, max float64) bool {
+	return min <= x && x <= max
+}
