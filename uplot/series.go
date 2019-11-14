@@ -12,6 +12,14 @@ type Series struct {
 	Dots [][2]float64
 }
 
+func (s *Series) Empty() bool {
+	return len(s.Dots) == 0
+}
+
+func (s *Series) Last() [2]float64 {
+	return s.Dots[len(s.Dots) - 1]
+}
+
 type SeriesBuilder struct {
 	seriesList []*Series
 }
