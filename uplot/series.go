@@ -1,6 +1,7 @@
 package uplot
 
 import (
+	"fmt"
 	"strings"
 
 	ec "github.com/go-echarts/go-echarts/charts"
@@ -30,6 +31,12 @@ func (sc *SeriesBuilder) AddDot(name string, x, y float64) {
 		sc.seriesList = append(sc.seriesList, &Series{Name: name})
 	}
 	sc.seriesList[i].Dots = append(sc.seriesList[i].Dots, [2]float64{x, y})
+}
+
+func (sc *SeriesBuilder) PrintStats() {
+	for _, s := range sc.seriesList {
+		fmt.Printf("[%v] Count: %v\n", s.Name, len(s.Dots))
+	}
 }
 
 func (sc *SeriesBuilder) Build(typ string) *ec.RectChart {
