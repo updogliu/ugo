@@ -1,7 +1,6 @@
 package ustr
 
 import (
-	"regexp"
 	"strconv"
 )
 
@@ -27,13 +26,4 @@ func MustParseBool(s string) bool {
 		panic(err)
 	}
 	return x
-}
-
-// Panics on error
-func Match(pattern string, s string) bool {
-	matched, err := regexp.MatchString(pattern, s)
-	if err != nil {
-		panic(err)
-	}
-	return matched
 }
