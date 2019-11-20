@@ -2,6 +2,7 @@ package uplot
 
 import (
 	"bytes"
+	"io"
 
 	ec "github.com/go-echarts/go-echarts/charts"
 	"github.com/pkg/browser"
@@ -103,8 +104,12 @@ func getXYs(arg interface{}) (xys [][2]float64) {
 	panic("unreachable")
 }
 
+type Render interface {
+	Render(w ...io.Writer) error
+}
+
 // `chart` will become unusable after this function.
-func RenderInBrowser_DestroyChart(chart *ec.RectChart) {
+func RenderInBrowser_DestroyChart(chart Render) {
 	buf := new(bytes.Buffer)
 	chart.Render(buf)
 	browser.OpenReader(buf)
