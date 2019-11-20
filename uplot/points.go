@@ -3,6 +3,7 @@ package uplot
 import (
 	"bytes"
 	"io"
+	"io/ioutil"
 
 	ec "github.com/go-echarts/go-echarts/charts"
 	"github.com/pkg/browser"
@@ -106,6 +107,10 @@ func getXYs(arg interface{}) (xys [][2]float64) {
 
 type Render interface {
 	Render(w ...io.Writer) error
+}
+
+func init() {
+	browser.Stdout = ioutil.Discard
 }
 
 // `chart` will become unusable after this function.
