@@ -1,5 +1,7 @@
 package ugo
 
+import "sort"
+
 func AppendStr(a *[]string, val string) {
 	*a = append(*a, val)
 }
@@ -30,4 +32,12 @@ func AppendByte(a *[]byte, val byte) {
 
 func AppendF64(a *[]float64, val float64) {
 	*a = append(*a, val)
+}
+
+func SortI64(a []int64) {
+	sort.Slice(a, func(i, j int) bool { return a[i] < a[j] })
+}
+
+func SortU64(a []uint64) {
+	sort.Slice(a, func(i, j int) bool { return a[i] < a[j] })
 }
