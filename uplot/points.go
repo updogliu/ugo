@@ -63,6 +63,14 @@ func Line(args ...interface{}) *ec.RectChart {
 	return &chart.RectChart
 }
 
+func SetTitle(chart *ec.RectChart, pageTitle string) {
+	chart.SetGlobalOptions(ec.InitOpts{PageTitle: pageTitle})
+	chart.SetGlobalOptions(ec.TitleOpts{
+		Title:      pageTitle,
+		TitleStyle: ec.TextStyleOpts{FontSize: 12},
+	})
+}
+
 func SetYAxisLimits(chart *ec.RectChart, min, max float64) {
 	var yAxisOpt ec.YAxisOpts
 	if len(chart.YAxisOptsList) > 0 {

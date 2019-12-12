@@ -20,6 +20,7 @@ func (s *Series) Last() [2]float64 {
 	return s.Dots[len(s.Dots) - 1]
 }
 
+// Helper of building and rendering one or more data series.
 type SeriesBuilder struct {
 	seriesList []*Series
 }
@@ -28,6 +29,8 @@ func NewSeriesBuilder() *SeriesBuilder {
 	return &SeriesBuilder{}
 }
 
+// Add a dot to a certain series (identified by `name`). A new series is created when adding
+// its first dot.
 func (sc *SeriesBuilder) AddDot(name string, x, y float64) {
 	i := 0
 	for ; i < len(sc.seriesList); i++ {

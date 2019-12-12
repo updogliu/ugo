@@ -20,6 +20,7 @@ func SimpleChart() {
 		"Your Dots", []struct{ X, Y float64 }{{1, 1}, {2, 8}, {5, 10}, {9, 3}, {12, 5}},
 		"Our Dots", [2][]float64{{2, 4, 8, 11, 13}, {3, 5, 2, 15, 12}},
 	)
+	uplot.SetTitle(chart, "My Simple Chart")
 	uplot.SetSymbolSize(chart, 5)
 	uplot.SetYAxisLimits(chart, -15, 30)
 	uplot.RenderInBrowser_DestroyChart(chart)
@@ -36,5 +37,6 @@ func SeriesBuilder() {
 	builder.AddDot("Your Dots", 5, 3)
 
 	chart := builder.Build("Line")
+	uplot.SetTitle(chart, "SeriesBuilder Example")
 	uplot.RenderInBrowser_DestroyChart(chart)
 }
