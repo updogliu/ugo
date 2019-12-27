@@ -34,3 +34,10 @@ func IMatch(str, reg string) bool {
 	}
 	return Match(str, reg)
 }
+
+func Choose(condition bool, tStr, fStr string) string {
+	if condition {
+		return tStr
+	}
+	return fStr
+}

@@ -131,3 +131,24 @@ func I64Between(x, min, max int64) bool {
 func F64Between(x, min, max float64) bool {
 	return min <= x && x <= max
 }
+
+func IChoose(condition bool, tValue, fValue int) int {
+	if condition {
+		return tValue
+	}
+	return fValue
+}
+
+func I64Choose(condition bool, tValue, fValue int64) int64 {
+	if condition {
+		return tValue
+	}
+	return fValue
+}
+
+func F64Choose(condition bool, tValue, fValue float64) float64 {
+	if condition {
+		return tValue
+	}
+	return fValue
+}
