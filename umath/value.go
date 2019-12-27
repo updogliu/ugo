@@ -84,6 +84,18 @@ func IRoundDown(x, unit int) int {
 	return int(I64RoundDown(int64(x), int64(unit)))
 }
 
+func I32MakeMin(currentMin *int32, candidate int32) {
+	if candidate < *currentMin {
+		*currentMin = candidate
+	}
+}
+
+func I32MakeMax(currentMax *int32, candidate int32) {
+	if candidate > *currentMax {
+		*currentMax = candidate
+	}
+}
+
 func I64MakeMin(currentMin *int64, candidate int64) {
 	if candidate < *currentMin {
 		*currentMin = candidate
@@ -133,6 +145,13 @@ func F64Between(x, min, max float64) bool {
 }
 
 func IChoose(condition bool, tValue, fValue int) int {
+	if condition {
+		return tValue
+	}
+	return fValue
+}
+
+func I32Choose(condition bool, tValue, fValue int32) int32 {
 	if condition {
 		return tValue
 	}
