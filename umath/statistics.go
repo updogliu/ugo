@@ -37,9 +37,7 @@ func StdScore(x, mean, stddev float64) float64 {
 	return (x - mean) / stddev
 }
 
-var sqrt2 = math.Sqrt(2)
-
 func StdPercentile(x, mean, stddev float64) float64 {
 	stdScore := StdScore(x, mean, stddev)
-	return math.Erf(math.Abs(stdScore) / sqrt2)
+	return math.Erf(math.Abs(stdScore) / math.Sqrt2)
 }
