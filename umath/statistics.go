@@ -29,10 +29,17 @@ func MeanStdDev(original []float64, outlierFilterRate float64) (mean, stddev flo
 	return stat.MeanStdDev(x, nil)
 }
 
+func Mean(x []float64) float64 {
+	return stat.Mean(x, nil)
+}
+
 func StdScore(x, mean, stddev float64) float64 {
 	return (x - mean) / stddev
 }
 
-func Mean(x []float64) float64 {
-	return stat.Mean(x, nil)
+var sqrt2 = math.Sqrt(2)
+
+func StdPercentile(x, mean, stddev float64) float64 {
+	stdScore := StdScore(x, mean, stddev)
+	return math.Erf(math.Abs(stdScore) / sqrt2)
 }
