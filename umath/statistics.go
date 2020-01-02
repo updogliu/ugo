@@ -15,18 +15,34 @@ func MeanStdDev(original []float64, outlierFilterRate float64) (mean, stddev flo
 	if outlierFilterRate < 0 || outlierFilterRate > 1.0 {
 		panic("Invalid outlierFilterRate")
 	}
+	if outlierFilterRate == 0 {
+		return stat.MeanStdDev(original, nil)
+	}
 
 	x := make([]float64, len(original))
 	copy(x, original)
 	sort.Float64s(x)
 
-	filterNum := int(float64(len(x)) * outlierFilterRate)
-	if filterNum*2 >= len(x) {
+	cutNum := int(float64(len(x)) * outlierFilterRate)
+	if cutNum*2 >= len(x) {
 		return math.NaN(), math.NaN()
 	}
 
-	x = x[filterNum : len(x)-filterNum]
+	x = x[cutNum : len(x)-cutNum]
 	return stat.MeanStdDev(x, nil)
+}
+
+func GetExtremes(x []float64) (min, max float64) {
+	min, max = math.Inf(+1), math.Inf(-1)
+	for _, v := range x {
+		if v < min {
+			min = v
+		}
+		if v > max {
+			max = v
+		}
+	}
+	return
 }
 
 func Mean(x []float64) float64 {
