@@ -25,6 +25,16 @@ func TestI64Round(t *testing.T) {
 }
 
 func TestStdPercentile(t *testing.T) {
+	r.InEpsilon(t, 0.682689492137086, StdPercentile(+1.00, 0, 1), 1e-8)
+	r.InEpsilon(t, 0.954499736103642, StdPercentile(+2.00, 0, 1), 1e-8)
+	r.InEpsilon(t, 0.990119968484458, StdPercentile(+2.58, 0, 1), 1e-8)
+	r.InEpsilon(t, 0.997300203936740, StdPercentile(+3.00, 0, 1), 1e-8)
+
+	r.InEpsilon(t, 0.682689492137086, StdPercentile(-1.00, 0, 1), 1e-8)
+	r.InEpsilon(t, 0.954499736103642, StdPercentile(-2.00, 0, 1), 1e-8)
+	r.InEpsilon(t, 0.990119968484458, StdPercentile(-2.58, 0, 1), 1e-8)
+	r.InEpsilon(t, 0.997300203936740, StdPercentile(-3.00, 0, 1), 1e-8)
+
 	r.Equal(t, float64(0), StdPercentile(100, 100, 20))
 	r.InEpsilon(t, 0.682689492137086, StdPercentile(120, 100, 20), 1e-8)
 	r.InEpsilon(t, 0.954499736103642, StdPercentile(-10, 0, 5), 1e-8)
