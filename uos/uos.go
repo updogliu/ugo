@@ -13,6 +13,12 @@ func ExecShCmd(cmdStr string) error {
 	return cmd.Run()
 }
 
+func MustExecShCmd(cmdStr string) {
+	if err := ExecShCmd(cmdStr); err != nil {
+		panic(err)
+	}
+}
+
 func ExecShCmdWithOutput(cmdStr string) (string, error) {
 	c := exec.Command("sh", "-c", cmdStr)
 	var output bytes.Buffer

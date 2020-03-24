@@ -38,8 +38,8 @@ func Retry(ctx context.Context, taskName string, retryGap time.Duration, f func(
 			}
 
 			select {
-				case <-ticker.C:
-				case <-ctx.Done():
+			case <-ticker.C:
+			case <-ctx.Done():
 			}
 		}
 	}
