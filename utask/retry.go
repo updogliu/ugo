@@ -34,7 +34,7 @@ func Retry(ctx context.Context, taskName string, retryGap time.Duration, f func(
 			}
 
 			if logCooldown.Ready() {
-				ulog.Errorf("%s failed: %v", taskName, lastErr)
+				ulog.Errorf("Still retrying %s. Last error: %v", taskName, lastErr)
 			}
 
 			select {
