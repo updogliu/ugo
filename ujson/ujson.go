@@ -6,6 +6,10 @@ func Beautify(v interface{}) string {
 	return GetIndentedJsonStr(v)
 }
 
+func Pretty(v interface{}) string {
+	return GetIndentedJsonStr(v)
+}
+
 func Compact(v interface{}) string {
 	return GetCompactJsonStr(v)
 }
