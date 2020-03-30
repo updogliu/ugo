@@ -15,7 +15,7 @@ func Retry(ctx context.Context, taskName string, retryGapMs int64, f func() erro
 	// Suppress logging more than one error within 5 sec.
 	logCooldown := utime.NewUnreadyCooldown(5 * time.Second)
 
-	ticker := time.NewTicker(retryGapMs * time.Millisecond)
+	ticker := time.NewTicker(time.Duration(retryGapMs) * time.Millisecond)
 	defer ticker.Stop()
 
 	var lastErr error
