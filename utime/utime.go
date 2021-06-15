@@ -31,11 +31,19 @@ func DurToMs(d time.Duration) int64 {
 }
 
 func SecToTime(timeSec int64) time.Time {
-	return time.Unix(timeSec, 0)
+	return time.Unix(timeSec, 0).UTC()
 }
 
 func MsToTime(timeMs int64) time.Time {
-	return time.Unix(0, timeMs*1e6)
+	return time.Unix(0, timeMs*1e6).UTC()
+}
+
+func MsToDur(durMs int64) time.Duration {
+	return time.Duration(durMs) * time.Millisecond
+}
+
+func MsToSec(durMs int64) float64 {
+	return float64(durMs) / 1e3
 }
 
 // Abs(t1 - t2)
@@ -52,6 +60,10 @@ func GapSec(t1, t2 time.Time) int64 {
 
 func GapMs(t1, t2 time.Time) int64 {
 	return DurToMs(Gap(t1, t2))
+}
+
+func SinceMs(timeMs int64) int64 {
+	return NowMs() - timeMs
 }
 
 // Returns whether a timestamp (in second) is in 2017/12/01 ~ 2099/12/01
@@ -84,6 +96,17 @@ func CtxTimeoutMs(timeoutMs int64) context.Context {
 	return ctx
 }
 
+// Return immediately if `durationMs` is non-positive.
 func SleepMs(durationMs int64) {
 	time.Sleep(time.Duration(durationMs) * time.Millisecond)
+}
+
+// Return immediately if `timeMs` is a past time (earlier than `NowMs()`).
+func SleepUntilMs(timeMs int64) {
+	SleepMs(timeMs - NowMs())
+}
+
+const TimeLayoutSqlMs = "2006-01-02 15:04:05.000"
+func FormatTimeMsAsSqlMs(timeMs int64) string {
+	return MsToTime(timeMs).UTC().Format(TimeLayoutSqlMs)
 }
